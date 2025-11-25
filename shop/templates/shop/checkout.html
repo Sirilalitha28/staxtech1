@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Checkout</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Qty</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in cart_items %}
+      <tr>
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>₹ {{ item.subtotal }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<p class="total">Total: ₹ {{ total }}</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn">Confirm Order (Demo)</button>
+  <h3>Demo Payment</h3>
+  <label>Name</label>
+  <input type="text">
+  <label>Card Number</label>
+  <input type="text" placeholder="xxxx-xxxx-xxxx-xxxx">
+  <button type="submit">Pay Now (Demo)</button>
+</form>
+{% endblock %}

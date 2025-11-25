@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>E-Commerce Demo</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <header>
+    <h1><a href="/">E-Commerce Demo</a></h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/cart/">Cart</a>
+
+    {% if user.is_authenticated %}
+      <span>Hello, {{ user.username }}</span>
+      <a href="/logout/">Logout</a>
+    {% else %}
+      <a href="/login/">Login</a>
+      <a href="/signup/">Register</a>
+    {% endif %}
+
+      {% if user.is_authenticated %}
+    <a href="/my-orders/">My Orders</a>
+    <a href="/logout/">Logout</a>
+{% else %}
+    <a href="/login/">Login</a>
+    <a href="/signup/">Register</a>
+{% endif %}
+
+    </nav>
+  </header>
+
+  {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+        <div class="message {{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>© {{ request.get_host }} — Demo Store</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Products</h2>
+<div class="product-grid">
+  {% for product in products %}
+    <div class="product-card">
+      <h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+      <p class="price">₹ {{ product.price }}</p>
+      <p>{{ product.description|truncatewords:15 }}</p>
+      <a class="btn" href="{{ product.get_absolute_url }}">View</a>
+      <a class="btn" href="{% url 'cart_add' product.id %}">Add to Cart</a>
+    </div>
+  <form method="get" class="search-bar">
+    <input type="text" name="q" placeholder="Search products..." value="{{ request.GET.q }}">
+    <button type="submit">Search</button>
+</form>
+
+<div class="category-filter">
+    <a href="/">All</a>
+    {% for category in categories %}
+        <a href="?category={{ category.slug }}">{{ category.name }}</a>
+    {% endfor %}
+</div>
+
+  {% empty %}
+    <p>No products available.</p>
+  {% endfor %}
+</div>
+{% endblock %}
